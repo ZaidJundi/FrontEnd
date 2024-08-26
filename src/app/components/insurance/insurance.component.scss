@@ -1,0 +1,41 @@
+  table {
+    width: 50%;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
+  }
+
+  tr.mat-header-row {
+    height: 56px;
+  }
+
+  .mat-card-subtitle, .mat-card-content {
+    font-size: 14px;
+  }
+
+
+
+  .mdc-data-table__header-cell {
+    color: rgba(0,0,0,.54)!important;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .mat-table td.mat-cell:first-child, .mat-table td.mat-footer-cell:first-child, .mat-table th.mat-header-cell:first-child {
+    padding-left: 20px !important;
+  }
+
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .mat-sort-header-container {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    letter-spacing: normal;
+    outline: 0;
+  }

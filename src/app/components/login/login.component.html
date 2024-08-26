@@ -1,0 +1,33 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <div class="login-header">
+      <img src="https://www.ijara.ps/assets/images/logo.png" alt="Logo" class="logo">
+      <h3 class="login-title">تسجيل الدخول</h3>
+    </div>
+    <form [formGroup]="loginForm" class="login-form">
+      <mat-form-field class="login-form-field" appearance="outline">
+        <mat-label>اسم المستخدم</mat-label>
+        <input matInput formControlName="userName" placeholder="اسم المستخدم">
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-error *ngIf="loginForm.controls['userName'].dirty && loginForm.controls['userName'].hasError('required')">
+          *اسم المستخدم مطلوب
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="login-form-field" appearance="outline">
+        <mat-label>كلمة المرور</mat-label>
+        <input matInput [type]="type" formControlName="passwordHash" placeholder="كلمة المرور">
+        <button mat-icon-button matPrefix (click)="hideShowPass()">
+          <mat-icon>{{isText ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="loginForm.controls['passwordHash'].dirty && loginForm.controls['passwordHash'].hasError('required')">
+          *كلمة المرور مطلوبة
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="login-button" (click)="onSubmit()" type="submit">
+        تسجيل الدخول
+      </button>
+    </form>
+  </mat-card>
+</div>

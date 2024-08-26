@@ -1,0 +1,72 @@
+<div class="progress-bar-container">
+  <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
+</div>
+<div class="container" style="width: 95%; margin: 40px auto;">
+  <div fxFlex="80%">
+    <mat-card>
+      <mat-card-content>
+
+        <div class="header-container2">
+          <h2></h2>
+          <button mat-raised-button color="primary" (click)="exportAsExcel()">تصدير إلى Excel</button>
+        </div>
+        <h2>المركبات</h2>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>بحث</mat-label>
+          <input matInput (keyup)="applyFilter($event)"  placeholder="بحث عن مركبات">
+        </mat-form-field>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="vehicles" matSort class="custom-table">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="contractNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم العقد</th>
+              <td mat-cell *matCellDef="let element">{{element.contractNumber}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="licensePlate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم اللوحة</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.licensePlate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="vin">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم الشصي</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.vin}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="vehicleType">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>نوع المركبة</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.vehicleType}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="vehicleColor">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>لون المركبة</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.vehicleColor}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>سنة الانتاج</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.year}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="driverName">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>اسم السائق</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.driverName}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="driverNumber">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم السائق</th>
+              <td mat-cell *matCellDef="let element">{{element.vehicle.driverNumber}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

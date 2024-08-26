@@ -1,0 +1,66 @@
+<div class="prog
+ress-bar-container">
+  <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
+</div>
+<div class="container" style="width: 95%; margin: 40px auto;">
+  <div fxFlex="80%">
+    <mat-card>
+      <mat-card-content>
+
+        <div class="header-container2">
+          <h2></h2>
+          <button mat-raised-button color="primary" (click)="exportAsExcel()">تصدير إلى Excel</button>
+        </div>
+        <h2>الصانات الطارئة والمستعجلة</h2>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>بحث</mat-label>
+          <input matInput (keyup)="applyFilter($event)"  placeholder="بحث عن صيانات">
+        </mat-form-field>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="maintenanceRecords" matSort class="custom-table">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#.</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="maintenanceDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تاريخ الصيانة</th>
+              <td mat-cell *matCellDef="let element">{{element.maintenanceRecord.maintenanceDate | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="maintenanceDetails">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تفاصيل الصيانة</th>
+              <td mat-cell *matCellDef="let element">{{element.maintenanceRecord.maintenanceDetails }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="licensePlate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم لوحة المركبة</th>
+              <td mat-cell *matCellDef="let element">{{element.licensePlate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="additionalCost">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تكلفة إضافية</th>
+              <td mat-cell *matCellDef="let element">{{element.maintenanceRecord.additionalCost }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="typeOfMaintenance">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>نوع الصيانة</th>
+              <td mat-cell *matCellDef="let element">{{ getMaintenanceRecordsType(element.maintenanceRecord.typeOfMaintenance) }}</td>
+
+            </ng-container>
+
+            <ng-container matColumnDef="notes">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>ملاحظات</th>
+              <td mat-cell *matCellDef="let element">{{element.maintenanceRecord.notes }}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

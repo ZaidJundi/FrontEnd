@@ -1,0 +1,46 @@
+<div class="progress-bar-container">
+  <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
+</div>
+<div class="container" style="width: 95%; margin: 40px auto;">
+  <div fxFlex="80%">
+    <mat-card>
+      <mat-card-content>
+        <h2>العقود</h2>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="contracts" matSort class="custom-table">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>No.</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="contractId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Contract ID</th>
+              <td mat-cell *matCellDef="let element">{{element.contractId}}</td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="startDateOfFinancing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+              <td mat-cell *matCellDef="let element">{{element.startDateOfFinancing | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="endDateOfFinancing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+              <td mat-cell *matCellDef="let element">{{element.endDateOfFinancing | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="contractStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Contract Status</th>
+              <td mat-cell *matCellDef="let element">{{element.contractStatus}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

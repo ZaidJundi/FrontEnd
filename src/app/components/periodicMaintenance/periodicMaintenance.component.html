@@ -1,0 +1,79 @@
+<div class="progress-bar-container">
+  <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
+</div>
+<div class="container" style="width: 95%; margin: 40px auto;">
+  <div fxFlex="80%">
+    <mat-card>
+      <mat-card-content>
+        <div id="alertBox" style="position: relative; border: 1px solid red; background-color: #ffe6e6; color: red; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+          <button style="position: absolute; top: 5px; left: 5px; background: none; border: none; font-size: 18px; cursor: pointer;" (click)="dismissAlert()">&times;</button>
+          <p style="font-weight: bold; font-size: 26px; margin: 0;">تنبيهات:</p>
+          <ul style="margin-top: 10px; padding-left: 20px;">
+            <li style="margin-bottom: 5px; font-size: 18px;">لا يمكن تعديل الكيلومترات الحالية أكثر من مرة في اليوم الواحد لكل سيارة.</li>
+            <li style="margin-bottom: 5px; font-size: 18px;">يجب أن يكون عدد الكيلومترات الحالية عند التحديث أكبر من الكيلومترات السابقة.</li>
+          </ul>
+        </div>
+
+
+
+
+
+        <div class="header-container2">
+          <h2></h2>
+          <button mat-raised-button color="primary" (click)="exportAsExcel()">تصدير إلى Excel</button>
+        </div>
+        <h2>الصيانة الدورية</h2>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>بحث</mat-label>
+          <input matInput (keyup)="applyFilter($event)"  placeholder="بحث عن صيانات دورية">
+        </mat-form-field>
+        <div class="table-responsive">
+          <table mat-table [dataSource]="periodicMaintenance" matSort class="custom-table">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#.</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="currentMileage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>الكيلومترات الحالية</th>
+              <td mat-cell *matCellDef="let element">{{element.periodicMaintenance.currentMileage }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="nextMileage">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>الكيلومترات التالية</th>
+              <td mat-cell *matCellDef="let element">{{element.periodicMaintenance.nextMileage}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="licensePlate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم لوحة المركبة</th>
+              <td mat-cell *matCellDef="let element">{{element.licensePlate}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="previousMaintenancDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تاريخ الصيانة السابقة</th>
+              <td mat-cell *matCellDef="let element">{{element.periodicMaintenance.previousMaintenancDate | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="nextMaintenanceDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تاريخ الصيانة التالية</th>
+              <td mat-cell *matCellDef="let element">{{element.periodicMaintenance.nextMaintenanceDate | date: 'yyyy-MM-dd' }}</td>
+            </ng-container>
+            <ng-container matColumnDef="carDeliveryDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>تاريخ تسليم السيارة</th>
+              <td mat-cell *matCellDef="let element">{{element.periodicMaintenance.carDeliveryDate | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="update">
+              <th mat-header-cell *matHeaderCellDef> تحديث الكيلومترات الحالية</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-button color="accent" (click)="updateRow(element.periodicMaintenance.id)"> تحديث </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

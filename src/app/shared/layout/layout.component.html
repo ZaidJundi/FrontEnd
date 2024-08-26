@@ -1,0 +1,105 @@
+<div class="navbar-container" [class.navbar-is-mobile]="mobileQuery.matches" dir="rtl">
+  <mat-toolbar class="navbar" color="primary">
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="navbar-brand" [routerLink]="['/']" matTooltip="الرئيسية">
+      <span>التأجير التمويلي الإسلامي
+      </span>
+    </a>
+    <span class="navbar-spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="notificationsMenu">
+      <mat-icon [matBadge]="notificationsCount" matBadgeColor="accent">notifications</mat-icon>
+    </button>
+    <mat-menu #notificationsMenu="matMenu">
+      <button mat-menu-item *ngFor="let notification of notifications;">
+        <a mat-menu-item [routerLink]="['/notification']">
+          <mat-icon>info</mat-icon>
+          <span>{{ notification }}</span>
+        </a>
+      </button>
+    </mat-menu>
+
+
+
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+      <span fxShow fxHide.xs>{{name}}</span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+
+      <a mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>تسجيل الخروج</span>
+      </a>
+    </mat-menu>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="navbar-sidenav-container">
+    <mat-sidenav #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
+
+    <mat-nav-list>
+      <h3 mat-subheader>الرئيسية</h3>
+
+      <a mat-list-item class="list-item" [routerLink]="['/contract']" routerLinkActive="active">
+        <mat-icon mat-list-icon>assignment</mat-icon>
+        <p mat-line>العقود</p>
+      </a>
+
+      <a mat-list-item class="list-item" [routerLink]="['/vehicle']" routerLinkActive="active">
+        <mat-icon mat-list-icon>directions_car</mat-icon>
+        <p mat-line>المركبات</p>
+      </a>
+
+      <a mat-list-item class="list-item" [routerLink]="['/insurance']" routerLinkActive="active">
+        <mat-icon mat-list-icon>verified_user</mat-icon>
+        <p mat-line>التأمينات</p>
+      </a>
+      <a mat-list-item class="list-item" [routerLink]="['/license']" routerLinkActive="active">
+        <mat-icon mat-list-icon>verified</mat-icon>
+        <p mat-line>الترخيصات</p>
+      </a>
+
+      <a mat-list-item class="list-item" [routerLink]="['/maintenance-record']" routerLinkActive="active">
+
+        <mat-icon mat-list-icon>report_problem</mat-icon>
+        <p mat-line>الصيانات الطارئة والمستعجلة</p>
+      </a>
+      <a mat-list-item class="list-item" [routerLink]="['/periodic-maintenance']" routerLinkActive="active">
+        <mat-icon mat-list-icon>autorenew</mat-icon>
+        <p mat-line>الصيانات الدورية</p>
+      </a>
+      <a mat-list-item class="list-item" [routerLink]="['/maintenance-card']" routerLinkActive="active">
+        <mat-icon mat-list-icon>build_circle</mat-icon>
+        <p mat-line>بطاقات الصيانة </p>
+      </a>
+      <a mat-list-item class="list-item" [routerLink]="['/notification']" routerLinkActive="active">
+        <mat-icon mat-list-icon>notifications</mat-icon>
+        <p mat-line> الاشعارات</p>
+      </a>
+      <mat-divider></mat-divider>
+      <h3 mat-subheader>أخرى</h3>
+      <a mat-list-item class="list-item" [routerLink]="['/reports']">
+        <mat-icon mat-list-icon>error_outline</mat-icon>
+        <p mat-line>تقديم بلاغ عن حادث</p>
+      </a>
+      <a mat-list-item class="list-item logout-item" (click)="logout()">
+        <mat-icon mat-list-icon>exit_to_app</mat-icon>
+        <p mat-line>تسجيل الخروج</p>
+      </a>
+
+      <a id="push-bottom" mat-list-item class="list-item" [routerLink]="['/about']" routerLinkActive="active">
+        <mat-icon mat-list-icon>info_outline</mat-icon>
+        <p mat-line>حول</p>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

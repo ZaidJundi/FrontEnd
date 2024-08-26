@@ -1,0 +1,52 @@
+<div class="progress-bar-container">
+  <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async"></mat-progress-bar>
+</div>
+<div class="container" style="width: 95%; margin: 40px auto;">
+  <div fxFlex="80%">
+    <mat-card>
+      <mat-card-content>
+
+        <div class="header-container2">
+
+          <h2></h2>
+
+          <button mat-raised-button color="primary" (click)="exportAsExcel()">تصدير إلى Excel</button>
+
+
+        </div>
+        <h2>العقود</h2>
+        <mat-form-field style="width: 100%;" appearance="fill">
+          <mat-label>بحث عن العقود</mat-label>
+          <input matInput (keyup)="applyFilter($event)" placeholder="بحث عن العقود">
+        </mat-form-field>
+
+        <div class="table-responsive">
+          <table mat-table [dataSource]="contracts" matSort class="custom-table">
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>#.</th>
+              <td mat-cell *matCellDef="let element; let i = index">{{i + 1}}</td>
+            </ng-container>
+            <ng-container matColumnDef="contractId">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>رقم العقد</th>
+              <td mat-cell *matCellDef="let element">{{element.contractId}}</td>
+            </ng-container>
+            <ng-container matColumnDef="startDateOfFinancing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>بداية عقد التمويل</th>
+              <td mat-cell *matCellDef="let element">{{element.startDateOfFinancing | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="endDateOfFinancing">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>نهاية عقد التمويل</th>
+              <td mat-cell *matCellDef="let element">{{element.endDateOfFinancing | date: 'yyyy-MM-dd'}}</td>
+            </ng-container>
+            <ng-container matColumnDef="contractStatus">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>حالة العقد</th>
+              <td mat-cell *matCellDef="let element">{{ getContractStatus(element.contractStatus) }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
